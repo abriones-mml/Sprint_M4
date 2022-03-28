@@ -67,8 +67,8 @@ b1.transferir_productos("1", 7, b2)
 #b1.productos[1].stock-=1
 print(b1.stock)
 print(b2.stock)
-print()
-print()
+print(b1.cont)
+print(b2.cont)
 print()
 print()
 
