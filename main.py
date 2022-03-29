@@ -6,8 +6,6 @@ from clase_bodega import Bodega
 from clase_proveedor import Proveedor
 from clase_producto import Producto
 
-# Instanciaminto de objetos
-
 # Proveedores
 tipo_producto = {1: "Tecnología", 2: "Calzado", 3: "Casa y Decoración", 4: "Deportes", 5: "Vestuario"}
 pv1 = Proveedor(1, "Proveedor 1", tipo_producto[1])
@@ -17,25 +15,39 @@ pv4 = Proveedor(1, "Proveedor 4", tipo_producto[4])
 pv5 = Proveedor(1, "Proveedor 5", tipo_producto[5])
 
 # Productos
-p1 = Producto("Smartphone X67", tipo_producto[1], 8, 139000)
-p2 = Producto("Zapatillas Vands", tipo_producto[2], 10, 49000)
-p3 = Producto("Sofa Cama", tipo_producto[3], 5, 60000)
-p4 = Producto("Camiseta Shile rumbo a Qatar 2022", tipo_producto[4], 50, 9990)
-p5 = Producto("Poleron Negro", tipo_producto[5], 7, 14990)
+a1 = Producto("Smartphone X67", tipo_producto[1], 139000)
+a2 = Producto("Zapatillas Vands", tipo_producto[2], 49000)
+a3 = Producto("Sofa Cama", tipo_producto[3], 60000)
+a4 = Producto("Camiseta Shile rumbo a Qatar 2022", tipo_producto[4], 9990)
+a5 = Producto("Poleron Negro", tipo_producto[5], 14990)
+productos= {1: a1, 2: a2, 3: a3, 4: a4, 5: a5}
+
 
 # Bodegas
-provb1 = [pv1, pv2]
-prodb1 = [p1, p2]
+provb1 = {1:pv1, 2:pv2}
+prodb1 = {1:a1, 2:a2}
 
-provb2 = [pv3, pv4]
-prodb2 = [p3, p4]
+provb2 = {1:pv3, 2:pv4}
+prodb2 = {3:a3, 4:a4}
 
-provb3 = [pv1, pv3, pv5]
-prodb3 = [p1, p3, p5]
+provb3 = {1:pv1, 3:pv3, 3:pv5}
+prodb3 = {1:a1, 3:a3, 5:a5}
 
-b1 = Bodega(1, "Bodega 1", 1000, provb1, prodb1)
-b2 = Bodega(2, "Bodega 2", 1000, provb2, prodb2)
-b3 = Bodega(3, "Bodega 3", 1000, provb3, prodb3)
+a={"1":1000,"2":1000}
+b={ "3":1, 
+    "4":2, 
+        }
+c={
+    "1":7,
+    
+    "3":7, 
+   
+    "5":7
+    }
+
+b1 = Bodega(1, "Bodega 1", 1000, provb1, prodb1, a)
+b2 = Bodega(2, "Bodega 2", 1000, provb2, prodb2, b)
+b3 = Bodega(3, "Bodega 3", 1000, provb3, prodb3, c)
 
 o1 = Operario(b1, "Elton", "Torron", 22022001, 2, 123)
 o2 = Operario(b2, "Esteban", "Dido", 22022002, 2, 1234)
@@ -49,7 +61,21 @@ a3 = Administrador(b3, "Ivette", "Farías", 12022002, 1, 123456)
 administradores = {1: a1, 2: a2, 3: a3}
 operarios = {1: o1, 2: o2, 3: o3, 4: o4}
 
+print(b1.productos[1].nombre, b1.stock["1"])
+print(b3.productos[1].nombre)
+b1.transferir_productos("1", 7, b2)
+#b1.productos[1].stock-=1
+print(b1.stock)
+print(b2.stock)
+print(b1.cont)
+print(b2.cont)
+print()
+print()
 
+
+
+
+"""
 while True:
     limpiar()
     print("Acceso de usuario:\n")
@@ -169,7 +195,7 @@ while True:
                     break 
     if opcion == 3:
         break
-    
+    """
 print("\nAdios!.")
 
 
