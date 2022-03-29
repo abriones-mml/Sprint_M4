@@ -32,7 +32,7 @@ class Bodega:
 
 
     def cant_prod_trans(self):
-        pass
+        return print(self.cont)
     
     def mostrar_tipos_trans(self):
         pass

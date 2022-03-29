@@ -63,12 +63,12 @@ operarios = {1: o1, 2: o2, 3: o3, 4: o4}
 
 print(b1.productos[1].nombre, b1.stock["1"])
 print(b3.productos[1].nombre)
-b1.transferir_productos("1", 7, b2)
+b1.transferir_productos("1", 7, b3)
 #b1.productos[1].stock-=1
 print(b1.stock)
-print(b2.stock)
+print(b3.stock)
 print(b1.cont)
-print(b2.cont)
+print(b3.cont)
 print()
 print()
 
