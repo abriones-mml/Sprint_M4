@@ -72,7 +72,7 @@ print(b3.cont)
 print()
 print()
 
-
+b3.total_bodega()
 
 
 """

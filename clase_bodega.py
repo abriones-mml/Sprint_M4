@@ -34,6 +34,10 @@ class Bodega:
     def cant_prod_trans(self):
         return print(self.cont)
     
+    def total_bodega(self):
+        total= sum(self.stock.values())
+        return print(total)
+        
     def mostrar_tipos_trans(self):
         pass
     
