@@ -13,6 +13,7 @@ pv2 = Proveedor(1, "Proveedor 2", tipo_producto[2])
 pv3 = Proveedor(1, "Proveedor 3", tipo_producto[3])
 pv4 = Proveedor(1, "Proveedor 4", tipo_producto[4])
 pv5 = Proveedor(1, "Proveedor 5", tipo_producto[5])
+proveedores= {1: pv1, 2: pv2, 3: pv3, 4: pv4, 5: pv5}
 
 # Productos
 a1 = Producto("Smartphone X67", tipo_producto[1], 139000)

@@ -1,5 +1,4 @@
-class Bodega:
-    
+class Bodega:    
     def __init__(self, id, nombre, __total_productos, proveedores, productos, stock, cont=0):
         ttrans={}
         self.id = id
@@ -35,7 +34,7 @@ class Bodega:
             print(f"Despacho rechazado, no hay suficiente stock en {self.nombre}")  #cambiar this print
 
 
-    def add_stock(self, ):
+    def add_stock(self):
         pass
 
 
@@ -44,6 +43,7 @@ class Bodega:
     
     def total_bodega(self):
         total= sum(self.stock.values())
+        self.__total_productos=total
         return print(total)
         
     def mostrar_tipos_trans(self):
@@ -61,3 +61,5 @@ class Bodega:
     def eliminar_proveedor(self):
         pass
     
+    def getProveedores(self):
+        pass
