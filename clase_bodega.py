@@ -1,3 +1,4 @@
+
 class Bodega:
     
     def __init__(self, id, nombre, __total_productos, proveedores, productos, stock, cont=0):
@@ -27,12 +28,27 @@ class Bodega:
             print(f"Despacho rechazado, no hay suficiente stock en {self.nombre}")  #cambiar this print
 
 
-    def add_stock(self, ):
-        pass
+    def __str__(self):
+        return f"Datos Bodega son :"'{:<15}{:<15}{:<15}{:<15}{:<15}'.format(self.id, self.nombre, self.__total_productos, self.proveedores, self.productos)
+    def mostrar_bodega( ):
+        print("Los productos en nuestra bodega son los siguientes: \n\n"  '{:<30}{:<15}{:<15}'.format("Id", "Nombre", "Total de productos", "proveedores", "productos"))
+        print(("*"*70))
+        for i in bodegas:
+            print(i)
+            input()
+
+
+
+
+    def add_stock(self):
+       print("Indique cual producto desea agregarle al stock")
+        self.stock[producto_elegido]=self.stock[producto_elegido] + cantidad
+        print(f"Se ha agregado al producto {self.nombre} la cantidad de {cantidad} quedando su nuevo stock en {self.stock[producto_elegido]}") 
+
 
 
     def cant_prod_trans(self):
-        pass
+        print(f"La cantidad de productos transferidos es: {self.cont}")
     
     def mostrar_tipos_trans(self):
         pass
@@ -46,4 +62,3 @@ class Bodega:
     
     def eliminar_proveedor(self):
         pass
-    
