@@ -24,7 +24,17 @@ productos= {1: a1, 2: a2, 3: a3, 4: a4, 5: a5}
 
 
 # Bodegas
-provb1 = {1:pv1, 2:pv2}
+
+prov=[pv1, pv2, pv3, pv4, pv5]
+
+provb1 = [pv1, pv2]
+
+provb2 = [pv3, pv4]
+
+provb3 = [pv1, pv3, pv5]
+
+bodegaprov={"1": provb1, "2":provb2, "3":provb3}
+
 prodb1 = {1:a1, 2:a2}
 
 provb2 = {1:pv3, 2:pv4}
@@ -131,11 +141,11 @@ while True:
                     if opcion1 == 1:
                         pass
                     elif opcion1 == 2:
-                        pass
+                        Proveedor.agregar_proveedor()
                     elif opcion1 == 3:
-                        pass
+                        Proveedor.eliminar_proveedor()
                     elif opcion1 == 4:
-                        pass
+                        Bodega.transferir_productos(b2, "3",2, b3)
                     elif opcion1 == 5:
                         pass
                     elif opcion1 == 6:
@@ -150,7 +160,7 @@ while True:
                     opcion2 == int(input("\nSeleccione opción: "))
                     
                     if opcion2 == 1:
-                        pass
+                        Proveedor.mostrar_proveedores()
                     elif opcion2 == 2:
                         break
                     
