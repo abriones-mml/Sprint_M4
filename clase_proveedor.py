@@ -10,3 +10,6 @@ class Proveedor:
     
     def modificar_tipo(self):
         pass
+    
+    def __str__(self):
+        return '{:<5}{:<15}{:<20}'.format(self.id, self.nombre, self.tipo_producto)

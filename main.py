@@ -1,55 +1,16 @@
 from limpiarconsola import *
-from clase_usuario import Usuario
-from clase_operario import Operario
-from clase_administrador import Administrador
-from clase_bodega import Bodega
-from clase_proveedor import Proveedor
-from clase_producto import Producto
+from datos import *
 
-# Instanciaminto de objetos
-
-# Proveedores
-tipo_producto = {1: "Tecnología", 2: "Calzado", 3: "Casa y Decoración", 4: "Deportes", 5: "Vestuario"}
-pv1 = Proveedor(1, "Proveedor 1", tipo_producto[1])
-pv2 = Proveedor(1, "Proveedor 2", tipo_producto[2])
-pv3 = Proveedor(1, "Proveedor 3", tipo_producto[3])
-pv4 = Proveedor(1, "Proveedor 4", tipo_producto[4])
-pv5 = Proveedor(1, "Proveedor 5", tipo_producto[5])
-
-# Productos
-p1 = Producto("Smartphone X67", tipo_producto[1], 8, 139000)
-p2 = Producto("Zapatillas Vands", tipo_producto[2], 10, 49000)
-p3 = Producto("Sofa Cama", tipo_producto[3], 5, 60000)
-p4 = Producto("Camiseta Shile rumbo a Qatar 2022", tipo_producto[4], 50, 9990)
-p5 = Producto("Poleron Negro", tipo_producto[5], 7, 14990)
-
-# Bodegas
-provb1 = [pv1, pv2]
-prodb1 = [p1, p2]
-
-provb2 = [pv3, pv4]
-prodb2 = [p3, p4]
-
-provb3 = [pv1, pv3, pv5]
-prodb3 = [p1, p3, p5]
-
-b1 = Bodega(1, "Bodega 1", 1000, provb1, prodb1)
-b2 = Bodega(2, "Bodega 2", 1000, provb2, prodb2)
-b3 = Bodega(3, "Bodega 3", 1000, provb3, prodb3)
-
-o1 = Operario(b1, "Elton", "Torron", 22022001, 2, 123)
-o2 = Operario(b2, "Esteban", "Dido", 22022002, 2, 1234)
-o3 = Operario(b2, "Giovanni", "Durán", 22022003, 2, 12345)
-o4 = Operario(b3, "Toribio", "Jiménez", 22022004, 2, 123456)
-
-a1 = Administrador(b1, "Giselle", "Saa", 12022001, 1, 1234)
-a2 = Administrador(b2, "Elza", "Pallo", 12022002, 1, 12345)
-a3 = Administrador(b3, "Ivette", "Farías", 12022002, 1, 123456)
-
-administradores = {1: a1, 2: a2, 3: a3}
-operarios = {1: o1, 2: o2, 3: o3, 4: o4}
-
-
+"""
+print(b1.productos[1].nombre, b1.stock[1])
+print(b3.productos[1].nombre)
+b1.transferir_productos(1, 7, b2)
+#b1.productos[1].stock-=1
+print(b1.stock)
+print(b2.stock)
+print(b1.cont)
+print(b2.cont)
+"""
 while True:
     limpiar()
     print("Acceso de usuario:\n")
@@ -102,30 +63,96 @@ while True:
                     
                     opcion1 = int(input("\nSeleccione opción: "))
                     
+                    # 1.1 Info de la bodega
                     if opcion1 == 1:
-                        pass
+                        limpiar()
+                        print(f">>> Información {administradores[n].bodega.nombre} <<<\n")
+                        print("Proveedores de Bodega:") 
+                        for i in administradores[n].bodega.proveedores:
+                            print(f"\t\t\t- {administradores[n].bodega.proveedores[i].nombre}")
+                        print("\nAquí se debería desplegar el detalle de los productos (NOMBRE, PRECIO (si es que lo agregamos), STOCK, PROVEEDOR")
+                        input()
+                    
+                    # 1.2 Agregar proveedor a bodega
                     elif opcion1 == 2:
-                        pass
+                        limpiar()
+                        print(f">>> Agregar Proveedor a {administradores[n].bodega.nombre} <<<\n")
+                        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
+                        print("="*40)
+                        administradores[n].bodega.agregar_proveedor(proveedores)
+                        input()
+                        
+                    # 1.3 Eliminar proveedor existente en bodega
                     elif opcion1 == 3:
-                        pass
+                        limpiar()
+                        print(f">>> Eliminar Proveedor de {administradores[n].bodega.nombre} <<<\n")
+                        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
+                        print("="*40)
+                        administradores[n].bodega.eliminar_proveedor()
+                        input()
+                    
+                    # 1.4 Transferir productos a otra bodega.
                     elif opcion1 == 4:
-                        pass
+                        limpiar()
+                        print(f">>> Transferir Productos desde {administradores[n].bodega.nombre} <<<\n")
+                        for i in bodegas:
+                            if administradores[n].bodega != bodegas[i]:
+                                print(f"[{bodegas[i].id}] {bodegas[i].nombre}")
+                            else: pass
+                            
+                        b =  int(input("\nA qué Bodega desea transferir productos?: "))
+                        
+                        limpiar()
+                        print(f"¿Qué producto desea transferir a {bodegas[b].nombre}?:\n")
+                        for key in bodegas[n].productos:
+                            print(f"[{key}]\t{productos[key].nombre}")
+                        p = int(input("\Seleccione producto: "))
+                        limpiar()
+                        u = int(input(f"¿Cuántas unidades de {productos[p].nombre} desea enviar a la {bodegas[b].nombre}?: "))
+                        bodegas[n].transferir_productos(p, 100, bodegas[b])
+                        input()
+                
+                    # 1.5 Detalle de transferencias de productos
                     elif opcion1 == 5:
                         pass
+                    
                     elif opcion1 == 6:
                         break
                     
                 elif opcion == 2:
                     limpiar()
                     print(">>>>>> Proveedores <<<<<<")
-                    print("[1] Ver proveedores y stock de productos por bodegas.")
-                    print("[2] Volver.")
+                    print(f"[1] Ver proveedores y stock de productos en {administradores[n].bodega.nombre} .")
+                    print("[2] Agregar Proveedor.")
+                    print("[3] Eliminar Proveedor.")
+                    print("[4] Modificar Tipo de producto ofrecido por un proveedor.")
+                    print("[5] Volver Menú principal.")
                     
-                    opcion2 == int(input("\nSeleccione opción: "))
+                    opcion2 = int(input("\nSeleccione opción: "))
                     
+                    # 2.1 Ver proveedores (stock de momento no aparece)
                     if opcion2 == 1:
-                        pass
+                        limpiar()
+                        print(f">>> Proveedores de {administradores[n].bodega.nombre}  <<<\n")
+                        print('{:<5}{:<15}{:<20}'.format("Id", "Nombre", "Tipo Producto"))
+                        print("="*40)
+                        for key in administradores[n].bodega.proveedores:
+                            print(administradores[n].bodega.proveedores[key])
+                        input()
+                        
+                    # 2.2 
                     elif opcion2 == 2:
+                        pass
+                    
+                    # 2.3 Eliminar proveedor.
+                    elif opcion2 == 3:
+                        pass
+
+                    # 2.4 Modificar tipo producto.
+                    elif opcion2 == 4:
+                        pass
+                    
+                    elif opcion2 == 5:
                         break
                     
                 elif opcion == 3:
@@ -169,29 +196,14 @@ while True:
                     break 
     if opcion == 3:
         break
-    
+        
 print("\nAdios!.")
+#"""
 
-
-
-"""
-limpiar()
-n = int(input("Ingrese contraseña: "))
-# agregar excepciones, tal que no se caiga el programa si se mete un password incorrecta.
-
-print(f"Buen día {usuarios[n].nombre} {usuarios[n].apellido}, qué desea hacer?\n")
-input()
-
-while True:
-    limpiar()
-    print(">>>>>> Menú Principal <<<<<<\n")
-    print("[1] Bodegas.")
-    print("[2] Proveedores.")
-    print("[3] Salir:")
-
+#"""
 
 
 limpiar()
 print("Que tenga buena jornada!\n")
 
-"""
+#"""
