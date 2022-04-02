@@ -15,17 +15,18 @@ class Proveedor:
             print(i)
         input()
     
-    def modificar_tipo(tipo_producto):
+     def modificar_tipo(self, tipo_producto):
         cambiar_tipo=int(input("Seleccione al proveedor que desea modificar el tipo de producto: "))-1
-        print(f"El tipo de producto del proveedor es :{tipo_producto[cambiar_tipo]}")
+        print(f"El tipo de producto del proveedor es :{self[cambiar_tipo].tipo_producto}")
         nuevo_tipo=input("Indique cual es la nueva categoria del producto: ").title()
-        tipo_producto[cambiar_tipo].tipo_producto= nuevo_tipo
+        self[cambiar_tipo].tipo_producto= nuevo_tipo
         print("El tipo de producto se ha cambiado exitosamente")
-        print(f"El nuevo tipo del producto es: {tipo_producto[cambiar_tipo]}")
+        print(f"El nuevo tipo del producto es: {self[cambiar_tipo].tipo_producto}")
 
-    def agregar_proveedor():
-        id=int(input("Indique el numero de id: "))
+
+     def inscripcion_bodega(self):
         nombre=input("Agregue nombre del proveedor: ").title()
+        id=int(input("Indique el numero de id: "))
         tipo= input("Agregue la categoria del producto: ").title()
         tipo_producto[id]=tipo
         tipo_producto
@@ -34,7 +35,7 @@ class Proveedor:
         print("A cuál bodega desea agregar el proveedor: ")
         print("1 : bodega 1  ""2 : bodega 2  " "3 : bodega3")
         bodega_elegida=input("Nombre de bodega elegida: ")
-        bodegaprov[bodega_elegida].append(pv)
+        self[bodega_elegida].append(pv)
 
     def eliminar_proveedor():
         id_eliminar=int(input("Seleccione el ID del proveedor que quiere eliminar: "))
@@ -156,7 +157,6 @@ print("\n")
 for i in provb3:
     print(i)
 
-
-
-Proveedor.modificar_tipo(prov)
+Proveedor.inscripcion_bodega(proveedoresb)
+Proveedor.modificar_tipo(prov, tipo_producto)
 Proveedor.mostrar_proveedores()
