@@ -15,11 +15,11 @@ pv5 = Proveedor(5, "Proveedor 5", tipo_producto[5])
 proveedores = {1: pv1, 2: pv2, 3: pv3, 4: pv4, 5: pv5}
 
 # Productos
-a1 = Producto("Smartphone X67", tipo_producto[1], 139000)
-a2 = Producto("Zapatillas Vands", tipo_producto[2], 49000)
-a3 = Producto("Sofa Cama", tipo_producto[3], 60000)
-a4 = Producto("Camiseta Shile rumbo a Qatar 2022", tipo_producto[4], 9990)
-a5 = Producto("Poleron Negro", tipo_producto[5], 14990)
+a1 = Producto("Smartphone X67", pv1, 139000)
+a2 = Producto("Zapatillas Vands", pv2, 49000)
+a3 = Producto("Sofa Cama", pv3, 60000)
+a4 = Producto("Camiseta Shile rumbo a Qatar 2022", pv4, 9990)
+a5 = Producto("Poleron Negro", pv5, 14990)
 productos= {1: a1, 2: a2, 3: a3, 4: a4, 5: a5}
 
 
@@ -40,9 +40,24 @@ prodb3 = {1:a1, 3:a3, 5:a5}
 
 proveedoresb3 = [provb3, prodb3] # lista (proveedores, productos)
 
-a={1: 1000, 2: 1000}
-b={ 3: 1, 4: 2} 
-c={1: 7, 3: 7, 5: 7}
+# Dict de stock de productos por bodega
+
+"""
+sp1 = {1: 50, 2: 0, 3: 150}
+sp2 = {1: 50, 2: 0, 3: 0}
+sp3 = {1: 0, 2: 100, 3: 150}
+sp4 = {1: 0, 2: 100, 3: 0}
+sp5 = {1: 0, 2: 0, 3: 150}
+
+stocks = {1: sp1, 2: sp2, 3: sp3, 4: sp4, 5: sp5} # key = producto, values = stock por bodega
+
+"""
+
+a={1: 10, 2: 20}
+b={3: 30, 4: 40} 
+c={1: 50, 3: 60, 5: 70}
+
+stockes = {1: a, 2: b, 3: c}
 
 # Bodegas
 b1 = Bodega(1, "Bodega 1", 1000, provb1, prodb1, a)
@@ -61,3 +76,10 @@ a3 = Administrador(bodegas[3], "Ivette", "Farías", 12022002, 1, 123456)
 
 administradores = {1: a1, 2: a2, 3: a3}
 operarios = {1: o1, 2: o2, 3: o3, 4: o4}
+
+# Transferencias
+transb1 = []
+transb2 = []        # [unidades, producto, destino]
+transb3 = []
+
+transfer = [transb1, transb2, transb3]
