@@ -5,7 +5,7 @@ class Proveedor:
         self.nombre = nombre
         self.tipo_producto = tipo_producto
         
-    def inscripcion_en_bodega(self):
+    def inscripcion_en_bodega(self, bodega):
         pass
     
     def modificar_tipo(self):

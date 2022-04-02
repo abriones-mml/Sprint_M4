@@ -86,34 +86,18 @@ while True:
                     # 1.1 Info de la bodega
                     if opcion1 == 1:
                         limpiar()
-                        stockbodega = stockes[n]
-                        print(f">>> Información {administradores[n].bodega.nombre} <<<\n")
-                        print("Proveedores de Bodega:") 
-                        for i in administradores[n].bodega.proveedores:
-                            print(f"\t\t\t- {administradores[n].bodega.proveedores[i].nombre}")
-                        print("\nDetalle de Productos en Bodega:\n")
-                        print("{:38}{:12}{:15}{:>6}".format("Nombre", "Precio", "Stock", "Proveedor"))
-                        print("="*80)
-                        for i in administradores[n].bodega.productos:
-                            print("{:34}{:9}{:10}{:>20}".format(administradores[n].bodega.productos[i].nombre, administradores[n].bodega.productos[i].precio, stockbodega[i], administradores[n].bodega.productos[i].proveedor.nombre))
-                        
+                        administradores[n].bodega.infobodega(stockes[n])
                         input()
                     
                     # 1.2 Agregar proveedor a bodega
                     elif opcion1 == 2:
                         limpiar()
-                        print(f">>> Agregar Proveedor a {administradores[n].bodega.nombre} <<<\n")
-                        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
-                        print("="*40)
                         administradores[n].bodega.agregar_proveedor(proveedores)
                         input()
                         
                     # 1.3 Eliminar proveedor existente en bodega
                     elif opcion1 == 3:
                         limpiar()
-                        print(f">>> Eliminar Proveedor de {administradores[n].bodega.nombre} <<<\n")
-                        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
-                        print("="*40)
                         administradores[n].bodega.eliminar_proveedor()
                         input()
                     
@@ -152,14 +136,7 @@ while True:
                     # 1.5 Detalle de transferencias de productos
                     elif opcion1 == 5:
                         limpiar()
-                        print(f">>> Detalle de transferencias de productos desde {administradores[n].bodega.nombre}.\n")
-                        if transfer[n-1] != []:
-                            print("{:10}{:40}{:20}".format("Unidades", "Producto", "Destino"))
-                            print("="*60)
-                            for i in range(len(transfer[n-1])):
-                                print("{:<10}{:40}{:20}".format(transfer[n-1][i][0], transfer[n-1][i][1], transfer[n-1][i][2]))
-                        else:
-                            print("Aún no se realizan transferencias de productos.")
+                        administradores[n].bodega.transferencias(transfer[n-1])
                         input()
                         
                     # 1.6 Ver info de todas las bodegas.

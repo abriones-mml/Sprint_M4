@@ -40,8 +40,15 @@ class Bodega:
             print(f"Despacho rechazado, no hay suficiente stock en {self.nombre}")  #cambiar this print
 
 
-    def cant_prod_trans(self):
-        return print(self.cont)
+    def transferencias(self, productos_transferidos):
+        print(f">>> Detalle de transferencias de productos desde {self.nombre}.\n")
+        if productos_transferidos != []:
+            print("{:10}{:40}{:20}".format("Unidades", "Producto", "Destino"))
+            print("="*60)
+            for i in range(len(productos_transferidos)):
+                print("{:<10}{:40}{:20}".format(productos_transferidos[i][0], productos_transferidos[i][1], productos_transferidos[i][2]))
+        else:
+            print("Aún no se realizan transferencias de productos.")
     
     def total_bodega(self):
         total= sum(self.stock.values())
@@ -57,6 +64,9 @@ class Bodega:
 
 
     def agregar_proveedor(self, dict_proveedores):
+        print(f">>> Agregar Proveedor a {self.nombre} <<<\n")
+        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
+        print("="*40)
         for i in dict_proveedores:
             if self.proveedores.get(i) != None:
                 pass
@@ -66,6 +76,9 @@ class Bodega:
         self.proveedores[p] = aux
     
     def eliminar_proveedor(self):
+        print(f">>> Eliminar Proveedor de {self.nombre} <<<\n")
+        print("{:<5}{:<15}{:<20}".format("ID", "Nombre", "Tipo de Producto"))
+        print("="*40)
         for i in self.proveedores:
             print(self.proveedores[i])
         p = int(input("\nSeleccione Proveedor a eliminar: "))
@@ -73,6 +86,13 @@ class Bodega:
         # aqui se puedes agregar excepciones ;)
         
         
-    def infobodega(self):
-        pass
-    
+    def infobodega(self, stock_en_bodega):
+        print(f">>> Información {self.nombre} <<<\n")
+        print("Proveedores de Bodega:") 
+        for i in self.proveedores:
+            print(f"\t\t\t- {self.proveedores[i].nombre}")
+        print("\nDetalle de Productos en Bodega:\n")
+        print("{:38}{:12}{:15}{:>6}{:>18}".format("Nombre", "Precio", "Stock", "Categoría", "Proveedor"))
+        print("="*95)
+        for i in self.productos:
+            print("{:34}{:9}{:10}{:>20}{:>20}".format(self.productos[i].nombre, self.productos[i].precio, stock_en_bodega[i], self.productos[i].proveedor.tipo_producto, self.productos[i].proveedor.nombre))
