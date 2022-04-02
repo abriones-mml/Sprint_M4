@@ -17,13 +17,15 @@ class Proveedor:
             print(i)
         input()
     
-    def modificar_tipo(tipo_producto):
+    
+     def modificar_tipo(self, tipo_producto):
         cambiar_tipo=int(input("Seleccione al proveedor que desea modificar el tipo de producto: "))-1
-        print(f"El tipo de producto del proveedor es :{tipo_producto[cambiar_tipo]}")
+        print(f"El tipo de producto del proveedor es :{self[cambiar_tipo].tipo_producto}")
         nuevo_tipo=input("Indique cual es la nueva categoria del producto: ").title()
-        tipo_producto[cambiar_tipo].tipo_producto= nuevo_tipo
+        self[cambiar_tipo].tipo_producto= nuevo_tipo
         print("El tipo de producto se ha cambiado exitosamente")
-        print(f"El nuevo tipo del producto es: {tipo_producto[cambiar_tipo]}")
+        print(f"El nuevo tipo del producto es: {self[cambiar_tipo].tipo_producto}")
+
 
     def agregar_proveedor():
         id=int(input("Indique el numero de id: "))
