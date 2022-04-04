@@ -1,34 +1,6 @@
 from limpiarconsola import *
 from datos import *
 
-"""
-print(b1.productos[1].nombre, b1.stock[1])
-print(b3.productos[1].nombre)
-b1.transferir_productos(1, 7, b2)
-#b1.productos[1].stock-=1
-print(b1.stock)
-print(b2.stock)
-print(b1.cont)
-print(b2.cont)
-
-print(b1.productos[1].nombre, b1.stock["1"])
-print(b3.productos[1].nombre)
-b1.transferir_productos("1", 7, b3)
-b1.transferir_productos("1", 7, b3)
-#b1.productos[1].stock-=1
-print(b1.stock)
-print(b3.stock)
-print(b1.cont)
-print(b3.cont)
-print()
-print()
-
-b3.total_bodega()
-b1.mostrar_tipos_trans()
-
-
-
-"""
 while True:
     limpiar()
     print("Acceso de usuario:\n")
@@ -87,6 +59,7 @@ while True:
                     if opcion1 == 1:
                         limpiar()
                         administradores[n].bodega.infobodega(stockes[n])
+                        administradores[n].bodega.total_bodega()
                         input()
                     
                     # 1.2 Agregar proveedor a bodega
@@ -119,18 +92,21 @@ while True:
                         p = int(input("\nSeleccione producto: "))
                         
                         limpiar()
-                        u = int(input(f"¿Cuántas unidades de {productos[p].nombre} desea enviar a la {bodegas[b].nombre}?: "))
-                        bodegas[n].transferir_productos(p, u, bodegas[b])
-                        transfer[n-1].append([u, administradores[n].bodega.productos[p].nombre, bodegas[b].nombre]) 
+                        u = int(input(f"¿Cuántas unidades de {productos[p].nombre} (stock: {administradores[n].bodega.stock[p]} unidades) desea enviar a la {bodegas[b].nombre}?: "))
+                        transferencia = bodegas[n].transferir_productos(p, u, bodegas[b]) #devuelve diccionario de transferencias de bodega
                         
-                        idtrans = administradores[n].bodega.productos[p].proveedor.id
+                        if transferencia:
+                            transfer[n-1].append([u, administradores[n].bodega.productos[p].nombre, bodegas[b].nombre]) 
                         
-                        if bodegas[b].proveedores.get(idtrans) != None:
-                            print("El proveedor está inscrito en la bodega de destino")
-                        else:
-                            print("El proveedor no está inscrito en la bodega de destino")
-                            bodegas[b].proveedores[idtrans] = administradores[n].bodega.productos[p].proveedor
-                            print(f"Proveedor {administradores[n].bodega.productos[p].proveedor.nombre} fue inscrito en {bodegas[b].nombre}")
+                            idtrans = administradores[n].bodega.productos[p].proveedor.id
+                        
+                            if bodegas[b].proveedores.get(idtrans) != None:
+                                print("El proveedor está inscrito en la bodega de destino")
+                            else:
+                                print("El proveedor no está inscrito en la bodega de destino")
+                                bodegas[b].productos.update({p:productos[p]})
+                                bodegas[b].proveedores[idtrans] = administradores[n].bodega.productos[p].proveedor
+                                print(f"Proveedor {administradores[n].bodega.productos[p].proveedor.nombre} fue inscrito en {bodegas[b].nombre}")
                         input()
                 
                     # 1.5 Detalle de transferencias de productos
