@@ -13,7 +13,7 @@ class Bodega:
 
     def transferir_productos(self, producto_elegido, cantidad, sucursal):
         
-        if self.stock[producto_elegido] >= cantidad and producto_elegido in sucursal.stock:
+        if self.stock[producto_elegido] >= cantidad and cantidad <= self.stock[producto_elegido] and producto_elegido in sucursal.stock:
             print(f"Producto transferido a {sucursal.nombre}")
             self.stock[producto_elegido] = self.stock[producto_elegido]-cantidad
             sucursal.stock[producto_elegido] = sucursal.stock[producto_elegido]+cantidad
@@ -25,12 +25,11 @@ class Bodega:
                 self.ttrans.update({producto_elegido:cantidad})
             else:
                 self.ttrans[producto_elegido]=self.ttrans[producto_elegido]+cantidad
-        
-        elif self.stock[producto_elegido] >= cantidad and producto_elegido not in sucursal.stock:
+                        
+        elif self.stock[producto_elegido] >= cantidad and cantidad <= self.stock[producto_elegido] and producto_elegido not in sucursal.stock:
             sucursal.stock.update({producto_elegido:cantidad})
             self.stock[producto_elegido] = self.stock[producto_elegido]-cantidad
             self.cont+=cantidad
-            
             if producto_elegido not in self.ttrans:
                 self.ttrans.update({producto_elegido:cantidad})
             else:
@@ -38,7 +37,7 @@ class Bodega:
         
         else: 
             print(f"Despacho rechazado, no hay suficiente stock en {self.nombre}")  #cambiar this print
-
+        return self.ttrans
 
     def transferencias(self, productos_transferidos):
         print(f">>> Detalle de transferencias de productos desde {self.nombre}.\n")
@@ -47,21 +46,23 @@ class Bodega:
             print("="*60)
             for i in range(len(productos_transferidos)):
                 print("{:<10}{:40}{:20}".format(productos_transferidos[i][0], productos_transferidos[i][1], productos_transferidos[i][2]))
+            self.mostrar_total_tipos_trans()
+            self.mostrar_total_trans()
         else:
             print("Aún no se realizan transferencias de productos.")
     
     def total_bodega(self):
         total= sum(self.stock.values())
         self.__total_productos=total
-        return print(total)
+        print(f"\nEn {self.nombre} hay un total de {self.__total_productos} unidades de productos.")
         
-    def mostrar_tipos_trans(self):
-        total= self.ttrans
-        return print(total)
+    def mostrar_total_tipos_trans(self):
+        total = len(self.ttrans)
+        print(f"\nDesde {self.nombre} se ha(n) transferido un total de {total} tipo(s) de producto(s) a otras bodegas.")
     
-    def mostrar_productos(self):
-        pass
-
+    def mostrar_total_trans(self):
+        total = sum(self.ttrans.values())
+        print(f"\nDesde {self.nombre} se ha(n) transferido un total de {total} unidad(es) de producto(s) a otras bodegas.")
 
     def agregar_proveedor(self, dict_proveedores):
         print(f">>> Agregar Proveedor a {self.nombre} <<<\n")

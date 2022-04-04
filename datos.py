@@ -42,17 +42,6 @@ proveedoresb3 = [provb3, prodb3] # lista (proveedores, productos)
 
 # Dict de stock de productos por bodega
 
-"""
-sp1 = {1: 50, 2: 0, 3: 150}
-sp2 = {1: 50, 2: 0, 3: 0}
-sp3 = {1: 0, 2: 100, 3: 150}
-sp4 = {1: 0, 2: 100, 3: 0}
-sp5 = {1: 0, 2: 0, 3: 150}
-
-stocks = {1: sp1, 2: sp2, 3: sp3, 4: sp4, 5: sp5} # key = producto, values = stock por bodega
-
-"""
-
 a={1: 10, 2: 20}
 b={3: 30, 4: 40} 
 c={1: 50, 3: 60, 5: 70}

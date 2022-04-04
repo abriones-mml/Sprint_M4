@@ -1,35 +1,6 @@
 from limpiarconsola import *
 from datos import *
 
-"""
-print(b1.productos[1].nombre, b1.stock[1])
-print(b3.productos[1].nombre, b3.stock[1])
-b1.transferir_productos(1, 7, b2)
-#b1.productos[1].stock-=1
-print(b1.stock)
-print(b2.stock)
-print(b1.cont)
-print(b2.cont)
-
-print(b1.productos[1].nombre, b1.stock[1])
-print(b3.productos[1].nombre)
-b1.transferir_productos(1, 7, b3)
-b1.transferir_productos(1, 7, b3)
-#b1.productos[1].stock-=1
-print(b1.stock)
-print(b3.stock)
-print(b1.cont)
-print(b3.cont)
-print()
-print()
-
-b3.total_bodega()
-b1.mostrar_tipos_trans()
-
-"""
-
-
-
 while True:
     limpiar()
     print("Acceso de usuario:\n")
@@ -37,7 +8,15 @@ while True:
     print("[2] Operario.")
     print("[3] Salir.")
     
-    opcion0 = int(input("\nSeleccione tipo de usuario: "))
+    while True:
+        try:
+            opcion0 = int(input("\nSeleccione opción: "))
+            if opcion0 in range(1,4):
+                break
+            else:
+                print("Ingrese un número entero en el rango 1-3")
+        except ValueError:
+            print("Ingrese un número!")
     
     if opcion0 == 1:
         limpiar()
@@ -68,9 +47,16 @@ while True:
                 print("[2] Gestión de Proveedores.")
                 print("[3] Salir")
                 
-                opcion = int(input("\nSeleccione opción: "))
+                while True:
+                    try:
+                        opcion = int(input("\nSeleccione opción: "))
+                        if opcion in range(1,4):
+                            break
+                        else: print("Ingrese un número entero en el rango 1-3")
+                    except ValueError:
+                        print("Ingrese un número!")
                 
-                # Menú de bodegas
+                # Menú de bodgas 
                 if opcion == 1:
                     limpiar()
                     print(">>>>>> Bodegas <<<<<<\n")
@@ -82,12 +68,21 @@ while True:
                     print("[6] Ver información de todas las bodegas")
                     print("[7] Volver a Menú anterior.")
                     
-                    opcion1 = int(input("\nSeleccione opción: "))
+                    while True:
+                        try:
+                            opcion1 = int(input("\nSeleccione opción: "))
+                            if opcion1 in range(1,8):
+                                break
+                            else: print("Ingrese un número entero en el rango 1-7")
+                        except ValueError:
+                            print("Ingrese un número!")
+
                     
                     # 1.1 Info de la bodega
                     if opcion1 == 1:
                         limpiar()
                         administradores[n].bodega.infobodega(stockes[n])
+                        administradores[n].bodega.total_bodega()
                         input()
                     
                     # 1.2 Agregar proveedor a bodega
@@ -105,34 +100,64 @@ while True:
                     # 1.4 Transferir productos a otra bodega.
                     elif opcion1 == 4:
                         limpiar()
+                        aux = {}
                         print(f">>> Transferir Productos desde {administradores[n].bodega.nombre} <<<\n")
                         for i in bodegas:
                             if administradores[n].bodega != bodegas[i]:
                                 print(f"[{bodegas[i].id}] {bodegas[i].nombre}")
-                            else: pass
-                            
-                        b =  int(input("\nA qué Bodega desea transferir productos?: "))
+                                aux[i] = bodegas[i]
+                        
+                        while True:
+                            try:
+                                b = int(input("\nA qué Bodega desea transferir productos?: "))
+                                if b in aux:
+                                    break
+                                else:
+                                    print("Ingrese un número correpondiente a una de las opciones!")
+                            except ValueError:
+                                    print("Ingrese un número!")
                         
                         limpiar()
                         print(f"¿Qué producto desea transferir a {bodegas[b].nombre}?:\n")
                         for key in bodegas[n].productos:
                             print(f"[{key}]\t{productos[key].nombre}")
-                        p = int(input("\nSeleccione producto: "))
+                        
+                        while True:
+                            try:
+                                p = int(input("\nSeleccione producto: "))
+                                if p in bodegas[n].productos:
+                                    break
+                                else:
+                                    print("Seleccione una de las opciones mostradas en pantalla!")
+                            except ValueError:
+                                print("Ingrese un número!")
                         
                         limpiar()
-                        u = int(input(f"¿Cuántas unidades de {productos[p].nombre} desea enviar a la {bodegas[b].nombre}?: "))
-                        bodegas[n].transferir_productos(p, u, bodegas[b])
-                        transfer[n-1].append([u, administradores[n].bodega.productos[p].nombre, bodegas[b].nombre]) 
                         
-                        idtrans = administradores[n].bodega.productos[p].proveedor.id
+                        while True:
+                            try:
+                                u = int(input(f"¿Cuántas unidades de {productos[p].nombre} (stock: {administradores[n].bodega.stock[p]} unidades) desea enviar a la {bodegas[b].nombre}?: "))
+                                
+                                if u > 0:
+                                    break
+                                else: print("Ingrese un número >0!")
+                            except ValueError:
+                                print("Ingrese un número!")
                         
-                        if bodegas[b].proveedores.get(idtrans) != None:
-                            print("El proveedor está inscrito en la bodega de destino")
-                        else:
-                            print("El proveedor no está inscrito en la bodega de destino")
-                            bodegas[b].proveedores[idtrans] = administradores[n].bodega.productos[p].proveedor
-                            print(f"Proveedor {administradores[n].bodega.productos[p].proveedor.nombre} fue inscrito en {bodegas[b].nombre}")
-                            bodegas[b].productos.update({p:productos[p]})
+                        transferencia = bodegas[n].transferir_productos(p, u, bodegas[b]) #devuelve diccionario de transferencias de bodega
+                        
+                        if transferencia:
+                            transfer[n-1].append([u, administradores[n].bodega.productos[p].nombre, bodegas[b].nombre]) 
+                        
+                            idtrans = administradores[n].bodega.productos[p].proveedor.id
+                        
+                            if bodegas[b].proveedores.get(idtrans) != None:
+                                print("El proveedor está inscrito en la bodega de destino")
+                            else:
+                                print("El proveedor no está inscrito en la bodega de destino")
+                                bodegas[b].productos.update({p:productos[p]})
+                                bodegas[b].proveedores[idtrans] = administradores[n].bodega.productos[p].proveedor
+                                print(f"Proveedor {administradores[n].bodega.productos[p].proveedor.nombre} fue inscrito en {bodegas[b].nombre}")
                         input()
                 
                     # 1.5 Detalle de transferencias de productos
@@ -168,18 +193,37 @@ while True:
                     print(f"[2] Modificar Tipo de producto ofrecido por un proveedor en {administradores[n].bodega.nombre}.")
                     print("[3] Volver Menú principal.")
                     
-                    opcion2 = int(input("\nSeleccione opción: "))
+                    while True:
+                        try:
+                            opcion2 = int(input("\nSeleccione opción: ")) 
+                            if opcion2 in range(1,4):
+                                break
+                            else: print("Ingrese un número correspondiente a una de las opciones!")
+                        except ValueError:
+                            print("Ingrese un número!")
                     
                     # 2.1 Inscribir proveedor en la bodega
                     if opcion2 == 1:
                         limpiar()
+                        aux = {}
                         print(f">>> Inscribir proveedor en {administradores[n].bodega.nombre} <<<\n")
                         for i in proveedores:
                             if administradores[n].bodega.proveedores.get(i) != None:
                                 pass
-                            else: print(proveedores[i])
-                        p = int(input("\nSeleccione proveedor a inscribir: "))
-                        administradores[n].bodega.proveedores[p] = proveedores[p]
+                            else:
+                                print(proveedores[i])
+                                aux[i] = proveedores[i]
+                        
+                        while True:
+                            try:
+                                p = int(input("\nSeleccione proveedor: ")) 
+                                if p in aux:
+                                    break
+                                else: print("Ingrese un número correspondiente a una de las opciones!")
+                            except ValueError:
+                                print("Ingrese un número!")
+                    
+                        proveedores[p].inscripcion_en_bodega(administradores[n].bodega, proveedores)
                         input()
                         
                     # 2.2. Modificar tipo producto del proveedor.
@@ -188,10 +232,17 @@ while True:
                         print(f">>> Modificar tipo de producto de proveedor en {administradores[n].bodega.nombre}.\n")
                         for i in administradores[n].bodega.proveedores:
                             print(administradores[n].bodega.proveedores[i])
-                        p = int(input("\nSeleccione proveedor: "))
-                        t = input(f"Ingrese el nuevo tipo de producto del proveedor {administradores[n].bodega.proveedores[p].nombre}:  ").title()
-                        administradores[n].bodega.proveedores[p].tipo_producto = t
                         
+                        while True:
+                            try:
+                                p = int(input("\nSeleccione proveedor: ")) 
+                                if p in administradores[n].bodega.proveedores:
+                                    break
+                                else: print("Ingrese un número correspondiente a una de las opciones!")
+                            except ValueError:
+                                print("Ingrese un número!")
+                        tipo_anterior = administradores[n].bodega.proveedores[p].tipo_producto
+                        proveedores[p].modificar_tipo(tipo_anterior)
                         input()
 
                     # Volver
@@ -251,6 +302,5 @@ while True:
                     break 
     if opcion0 == 3:
         break
-
-
+        
 print("\nAdios!.")
